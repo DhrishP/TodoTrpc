@@ -10,8 +10,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    String @id @default(cuid())
-  name  String
-  email String @unique
+model Todo {
+  id String @id @default(uuid())
+  task String
+  completed Boolean @default(false) 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
