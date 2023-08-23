@@ -4,14 +4,22 @@ import { useRef } from "react";
 import { trpc } from "../(trpc)/client";
 import { serverClient } from "../(trpc)/server-client";
 
-export default function GetHi({
+export default function TodoList({
   inititalTodos,
 }: {
   inititalTodos: Awaited<ReturnType<(typeof serverClient)["getTodos"]>>;
 }) {
   //very important type for typescript
   const getHi = trpc.sayHi.useQuery();
-  const getTodo = trpc.getTodos.useQuery();
+  const getTodo = trpc.getTodos.useQuery(undefined, {
+    initialData: inititalTodos.map((todo) => ({
+      ...todo,
+      createdAt: todo.createdAt.toLocaleDateString(),
+      updatedAt: todo.updatedAt.toLocaleDateString(),
+    })),
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+  });
 
   const doComplete = trpc.setDone.useMutation({
     onSettled: () => getTodo.refetch(),

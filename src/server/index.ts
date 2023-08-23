@@ -3,7 +3,7 @@ import {z} from 'zod'
 import prisma from "../../prisma/client";
 export const appRouter = router({
     sayHi: publicProcedure.query(()=>{
-        return {greeting:'Hello World!'}
+        return "Hello World"
     }),
     addTodo:publicProcedure.input(z.string()).mutation(async(opts)=>{
         await prisma.todo.create({data:{task:opts.input}})
