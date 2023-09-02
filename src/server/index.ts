@@ -1,6 +1,8 @@
 import { publicProcedure,router } from "./trpc";
+
 import {z} from 'zod'
 import prisma from "../../prisma/client";
+import { tpRoute } from "./tp";
 export const appRouter = router({
     sayHi: publicProcedure.query(()=>{
         return "Hello World"
@@ -26,7 +28,8 @@ export const appRouter = router({
                 completed:res?.completed === true ? false : true
             }
         })
-    })
+    }),
+    getTp:tpRoute
 })
 
 export type AppRouter = typeof appRouter; //For typescript

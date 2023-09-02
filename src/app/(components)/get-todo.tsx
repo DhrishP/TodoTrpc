@@ -11,6 +11,7 @@ export default function TodoList({
 }) {
   //very important type for typescript
   const getHi = trpc.sayHi.useQuery();
+  const getTp  = trpc.getTp.getTp.useQuery(); //This is just to show some routing in trpc
   const getTodo = trpc.getTodos.useQuery(undefined, {
     initialData: inititalTodos.map((todo) => ({
       ...todo,
